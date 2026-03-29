@@ -1,4 +1,4 @@
-# 🐈 PETKIT Cat Food Stats for Tidbyt / [Tronbyt Server](https://github.com/tronbyt/)
+# E-Scooter Charging Stats for Tidbyt / [Tronbyt Server](https://github.com/tronbyt/)
 ⚠️ Recommended to use the script/automation via HomeAssistant with [TidbytAssistant](https://github.com/savdagod/TidbytAssistant) for automations and display notifications.
 
 This Pixlet applet shows (UNU/NIU/Other) Electric Scooter Charger Stats from Home Assistant on your Tidbyt. Needs Home Assistant with a Power Outlet Sensor and some Helper Entities to track Yearly Energy, Total Charges and Cost. 
@@ -10,17 +10,17 @@ This Pixlet applet shows (UNU/NIU/Other) Electric Scooter Charger Stats from Hom
 
 ![Pixlet Preview](preview.gif) ![Pixlet Preview](output.gif)
 
-# ==========================
------> HA Helper <-----
-# ==========================
-Setup a new Helper Entity -> Counter -> create: E.g. counter.unu_charging_cycles
+## HA Helper
+Setup a new Helper Entity -> Counter -> create: E.g. **counter.unu_charging_cycles**
 
-# ==========================
-Setup a new Helper Entity -> Boolean Input -> create: E.g. input_boolean.unu_charging_active 
+Setup a new Helper Entity -> Boolean Input -> create: E.g. **input_boolean.unu_charging_active** 
 
-# ==========================
-------> HA Automations YAMLs (for Charging Cylces Counter) <-----
-# ==========================
+## Setup [TidbytAssistant](https://github.com/savdagod/TidbytAssistant) from HACS
+--> Easy way to send custom .star to yout Tidbyt Device locally. Install TidbytAssistan HACS. Follow Setup Instructions there.
+
+## HA Automations YAMLs (for Charging Cylces Counter)
+
+```yaml
 alias: UNU Charger - Charging Started
 triggers:
   - entity_id: sensor.smart_switch_xxxxxxxxx_power     <----- Put name of Smartplug/Switch here as Power source
@@ -33,8 +33,9 @@ conditions:
 actions:
   - entity_id: input_boolean.unu_charging_active
     action: input_boolean.turn_on
+```
 
-# ==========================
+```yaml
 alias: UNU Charger - Charging Ended
 triggers:
   - entity_id: sensor.smart_switch_xxxxxxxxx_power     <----- Put name of Smartplug/Switch here as Power source
@@ -51,7 +52,7 @@ actions:
     action: input_boolean.turn_off
   - entity_id: counter.unu_charging_cycles
     action: counter.increment
-
+```
 
 # ==========================
 -----> configuration.yaml <-----
